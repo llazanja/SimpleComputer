@@ -1,0 +1,71 @@
+				jump @pocetak
+@broj:			DEFINT 0
+
+@pocetak:		jump @dalje
+
+@petlja:		load r2, @kriviUnos
+				echo r2
+				
+@dalje:			load r2, @input
+				echo r2
+				
+				iinput @broj
+				jumpIfTrue @nastavi
+				jump @petlja
+				
+				
+@nastavi:		load r2, @fibResult
+				echo r2
+				
+				load r0, @broj
+				push r0
+				call @fibonacci
+				increment r15
+				echo r0
+				halt
+				
+# ------------------------------------------		
+				
+@fibonacci:		push r1
+				push r2
+				
+				move r1, [r15+4]
+				
+				move r2, 0
+				testEquals r1, r2
+				jumpIfTrue @kraj
+				
+				move r2, 1
+				testEquals r1, r2
+				jumpIfTrue @kraj
+				
+				decrement r1
+				push r1
+				call @fibonacci
+				increment r15
+				
+				move r2, r0
+				
+				decrement r1
+				push r1
+				call @fibonacci
+				increment r15
+				
+				add r0, r2, r0
+				
+				pop r2
+				pop r1
+				ret
+				
+@kraj:			pop r2
+				pop r1
+				move r0, 1
+				ret
+
+# ------------------------------------------
+
+@kriviUnos:		DEFSTR "Unos nije moguce protumaciti kao cijeli broj.\n"
+@input:			DEFSTR "Unesite cijeli broj n: "
+@fibResult:		DEFSTR "Fibonaccijev rezultat: "
+				RESERVE:49
+@stackTop:		RESERVE

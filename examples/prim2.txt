@@ -1,0 +1,35 @@
+			load r3, @neispravno
+			load r4, @input
+			
+			
+@petlja:	echo r4
+			iinput @lokacija
+			jumpIfTrue @gotovo
+			echo r3
+			jump @petlja
+@gotovo:	load r0, @lokacija
+			load r1, @poruka
+			load r2, @novired
+			echo r1
+			decrement r0
+			echo r0
+			echo r2
+			decrement r0
+			echo r0
+			echo r2
+			decrement r0
+			echo r0
+			echo r2
+			decrement r0
+			echo r0
+			echo r2
+			decrement r0
+			echo r0
+			echo r2
+			halt
+
+@lokacija:      DEFINT 0
+@novired:	DEFSTR  "\n"
+@input:		DEFSTR  "Unesite početni broj: "
+@poruka:	DEFSTR  "Sljedećih 5 brojeva su:\n"
+@neispravno:	DEFSTR  "Unos nije moguće protumačiti kao cijeli broj.\n"
